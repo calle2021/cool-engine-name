@@ -1,5 +1,5 @@
-add_executable(Sandbox
+add_executable(sandbox
     src/main.cc
     src/sandbox.cc
 )
-target_link_libraries(Sandbox PRIVATE Engine)
+target_link_libraries(sandbox PRIVATE engine)

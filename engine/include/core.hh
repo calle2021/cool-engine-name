@@ -3,14 +3,18 @@
 #include "game.hh"
 #include <memory>
 
-class Application {
+namespace Engine {
+
+class Core {
 public:
-    static Application& get_instance() {
-        static Application instance;
+    static Core& get_instance() {
+        static Core instance;
         return instance;
     }
     int run(std::unique_ptr<Game> game_ptr);
 private:
-    Application() {};
+    Core() {};
     std::unique_ptr<Game> game;
 };
+
+}

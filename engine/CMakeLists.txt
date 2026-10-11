@@ -1,8 +1,10 @@
-add_library(Engine STATIC
-    src/core/application.cc
+add_library(engine STATIC
+    src/core.cc
 )
 
-target_include_directories(Engine
-    PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include   # visible to anyone who links Engine
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src       # engine-internal only
+target_include_directories(engine
+    PUBLIC  ${CMAKE_CURRENT_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+target_link_libraries(engine PUBLIC imgui glfw)

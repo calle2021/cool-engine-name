@@ -20,13 +20,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 add_subdirectory(engine)
 add_subdirectory(sandbox)
-add_subdirectory(external)
+add_subdirectory(vendor)
 
 # Warnings
 if(MSVC)
-    target_compile_options(Sandbox PRIVATE /W4 /permissive- /utf-8)
+    target_compile_options(sandbox PRIVATE /W4 /permissive- /utf-8)
 else()
-    target_compile_options(Sandbox PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(sandbox PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # Make the sandbox/game the default startup project if a VS solution is ever generated
