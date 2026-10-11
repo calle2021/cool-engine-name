@@ -14,6 +14,8 @@ add_library(imgui STATIC
     ${imgui_SOURCE_DIR}/imgui_tables.cpp
     ${imgui_SOURCE_DIR}/imgui_widgets.cpp
     ${imgui_SOURCE_DIR}/imgui_demo.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
 )
 
 target_include_directories(imgui PUBLIC
@@ -33,3 +35,7 @@ set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL        OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
+
+# The backends call into GLFW and OpenGL
+find_package(OpenGL REQUIRED)
+target_link_libraries(imgui PUBLIC glfw OpenGL::GL)

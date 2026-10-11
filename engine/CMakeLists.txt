@@ -7,4 +7,5 @@ target_include_directories(engine
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(engine PUBLIC imgui glfw)
+find_package(OpenGL REQUIRED)
+target_link_libraries(engine PUBLIC imgui glfw OpenGL::GL)

@@ -14,7 +14,7 @@ static void glfw_error_callback(int error, const char* description)
 
 namespace Engine {
 
-int Core::run(std::unique_ptr<Game> game_ptr) {
+void Core::run(std::unique_ptr<Game> game_ptr) {
     game = std::move(game_ptr);
 
     glfwSetErrorCallback(glfw_error_callback);
@@ -33,15 +33,34 @@ int Core::run(std::unique_ptr<Game> game_ptr) {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    while(not glfwWindowShouldClose(window) and game->update()) {
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
 
+    while(not glfwWindowShouldClose(window) and game->update()) {
+        glfwPollEvents();
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::Begin("Debug");
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::End();
+        ImGui::Render();
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // Draw game here
+
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        glfwSwapBuffers(window);
+    }
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
-
-    return 1;
 }
 
 }

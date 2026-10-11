@@ -11,7 +11,7 @@ public:
         static Core instance;
         return instance;
     }
-    int run(std::unique_ptr<Game> game_ptr);
+    void run(std::unique_ptr<Game> game_ptr);
 private:
     Core() {};
     std::unique_ptr<Game> game;
