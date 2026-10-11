@@ -18,19 +18,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-add_executable(engine
-    src/main.cc
-)
-
-target_include_directories(engine PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
+add_subdirectory(engine)
+add_subdirectory(sandbox)
+add_subdirectory(external)
 
 # Warnings
 if(MSVC)
-    target_compile_options(engine PRIVATE /W4 /permissive- /utf-8)
+    target_compile_options(Sandbox PRIVATE /W4 /permissive- /utf-8)
 else()
-    target_compile_options(engine PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(Sandbox PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # Make the sandbox/game the default startup project if a VS solution is ever generated
